@@ -1,5 +1,5 @@
 ﻿using SimplyKnowHau.Data;
-using SimplyKnowHau.Logic.Model;
+using SimplyKnowHau.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace SimplyKnowHau.Logic.Logic
         {
             int id = GetNextId();
             var user = new User(id, name);
-            DataMenager.Users.Add(user);
+            _users.Add(user);
             return user;
         }
 
