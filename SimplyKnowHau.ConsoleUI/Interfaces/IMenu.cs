@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace SimplyKnowHau.ConsoleUI.Interfaces
 {
-    internal class IMenu
+    public interface IMenu
     {
+        void MenuStarts();
+
+        void MenuDisplay();
+
+        void SelectMenuOption();
+
+        void ChoosenOption();
+
+        void MenuExit();
     }
 }
