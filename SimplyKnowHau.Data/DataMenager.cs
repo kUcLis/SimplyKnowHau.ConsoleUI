@@ -1,4 +1,7 @@
-﻿namespace SimplyKnowHau.Data
+﻿using SimplyKnowHau.Data.Model;
+using System.Text.Json;
+
+namespace SimplyKnowHau.Data
 {
     public static class DataMenager
     {
@@ -11,8 +14,19 @@
         {
             var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
             string itemsSerialized = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<List<T>>(itemsSerialized) ?? new List<T>();
+            return JsonSerializer.Deserialize<List<T>>(itemsSerialized) ?? new List<T>();
         }
 
+        public static void SaveListAnimal(List<Animal> animalsList)
+        {
+            string fileName = "Animal.json";
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
+
+            string itemsSerialized = JsonSerializer.Serialize(animalsList);
+
+            File.WriteAllText(filePath, itemsSerialized);
+
+
+        }
     }
 }

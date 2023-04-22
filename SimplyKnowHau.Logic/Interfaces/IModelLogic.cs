@@ -8,5 +8,6 @@ namespace SimplyKnowHau.Logic.Interfaces
 {
     internal class IModelLogic
     {
+
     }
 }
