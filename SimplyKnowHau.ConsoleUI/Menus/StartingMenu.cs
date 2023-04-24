@@ -1,4 +1,5 @@
 ﻿using SimplyKnowHau.ConsoleUI.Interfaces;
+using SimplyKnowHau.Logic;
 using SimplyKnowHau.Logic.Logic;
 using System;
 using System.Collections;
@@ -22,7 +23,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
         private static string? welcomeMessage = "Welcome user! Give me your name:";
         
         private static List<CardItem> startMenuOptions = new() {
-            new CardItem(1, "Your Animals")),
+            new CardItem(1, "Your Animals"),
             new CardItem(2, "Make an apointment"),
             new CardItem(3, "History of apointments"),
             new CardItem(4, "?"),
@@ -201,36 +202,37 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             switch (activePosition)
             {
                 case 1:
-                    var dictionary2 = new Dictionaries(2);
-                    Starts(Dictionaries.AnimalMenuOptions);
+                    var animalLogic = new AnimalLogic();
+                    var animalMenu = new AnimalMenu(animalLogic);
+                    animalMenu.MenuStarts();
                     break;
                 case 2:
-                    var dictionary4 = new Dictionaries(5);
-                    Starts(Dictionaries.ChooseAnimalMenuOptions);
+                    //var dictionary4 = new Dictionaries(5);
+                    //Starts(Dictionaries.ChooseAnimalMenuOptions);
                     break;
                 case 3:
-                    var dictionary3 = new Dictionaries(4);
-                    Starts(Dictionaries.AppointmentMenuOptions);
+                    //var dictionary3 = new Dictionaries(4);
+                    //Starts(Dictionaries.AppointmentMenuOptions);
                     break;
                 case 4:
 
-                    Starts(dictionary);
+                    MenuStarts();
                     break;
                 case 5:
-                    Starts(dictionary);
+                    MenuStarts();
                     break;
                 case 6:
-                    Starts(dictionary);
+                    MenuStarts();
                     break;
                 case 7:
-                    Starts(dictionary);
+                    MenuStarts();
                     break;
                 case 8:
                     userName = String.Empty;
-                    Starts(dictionary);
+                    MenuStarts();
                     break;
                 case 9:
-                    Exit(dictionary);
+                    MenuExit();
                     break;
             }
         }
@@ -239,7 +241,28 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void MenuExit()
         {
-            throw new NotImplementedException();
+            LogoAndHelpers.SetCursorAndMsg(32, "You really want to quit? (Y/N)", FG);
+
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.N)
+                {
+                    MenuStarts();
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Y)
+                {
+                    LogoAndHelpers.DisplayLogo();
+                    LogoAndHelpers.SetCursorAndMsg(32, $"Bye {userName}", FG);
+
+                    activePosition = 0;
+                    Console.ReadLine();
+
+                    Environment.Exit(0);
+                    break;
+                }
+            } while (true);
         }
 
         
