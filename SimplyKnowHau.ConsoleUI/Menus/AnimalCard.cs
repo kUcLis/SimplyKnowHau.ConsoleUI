@@ -64,7 +64,6 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void StartAnimalCard()
         {
-            
             DisplayCardAnimal();
             DisplayShortAnimalMenu();
             SelectShortMenuOption();
