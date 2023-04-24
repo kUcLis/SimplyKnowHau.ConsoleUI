@@ -136,6 +136,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             {
                 var appointmentLogic = new AppointmentLogic();
                 var animalCard = new AnimalCard(_animalLogic.GetById(animalMenuOptions.ElementAt(activePosition).Id), _animalLogic, appointmentLogic);
+                animalCard.StartAnimalCard();
             }
             else
             {

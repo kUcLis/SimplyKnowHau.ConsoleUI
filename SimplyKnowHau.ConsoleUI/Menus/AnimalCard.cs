@@ -24,6 +24,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         private static List<CardItem>? cardItemsAnimal = new();
         private AnimalLogic _animalLogic;
+        
 
         private static List<CardItem> shortMenu = new()
         {
@@ -36,7 +37,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
         public AnimalCard(Animal animal, AnimalLogic animalLogic, AppointmentLogic appointmentLogic)
         {
             _animalLogic = animalLogic;
-
+            
 
             var appointment = appointmentLogic.GetLastByAnimalId(animal.Id);
 
@@ -46,14 +47,24 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             cardItemsAnimal.Add(new CardItem(3, "Specie: ", animal.AnimalCategory.Specie));
             cardItemsAnimal.Add(new CardItem(4, "Age: ", _animalLogic.Age(animal).ToString()));
             cardItemsAnimal.Add(new CardItem(5, "Date of birth: ", animal.DateOfBirth.ToShortDateString()));
-            cardItemsAnimal.Add(new CardItem(6, "Date of last visit: ", appointment.Date.ToShortDateString()));
-            cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", appointment.Description));
-            cardItemsAnimal.Add(new CardItem(8, "Receives: ", appointment.Recipe));
+            if(appointment != null)
+            {
+                cardItemsAnimal.Add(new CardItem(6, "Date of last visit: ", appointment.Date.ToShortDateString()));
+                cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", appointment.Description));
+                cardItemsAnimal.Add(new CardItem(8, "Receives: ", appointment.Recipe));
+            }
+            else
+            {
+                cardItemsAnimal.Add(new CardItem(6, "Date of last visit: ", "No appointment yet!"));
+                cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", "No appointment yet!"));
+                cardItemsAnimal.Add(new CardItem(8, "Receives: ", "No appointment yet!"));
+            }
+            
         }
 
         public void StartAnimalCard()
         {
-            activePosition = 1;
+            
             DisplayCardAnimal();
             DisplayShortAnimalMenu();
             SelectShortMenuOption();
