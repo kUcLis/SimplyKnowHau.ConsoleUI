@@ -144,7 +144,9 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void MenuExit()
         {
-            throw new NotImplementedException();
+            var userLogic = new UserLogic();
+            var startingMenu = new StartingMenu(userLogic);
+            startingMenu.MenuStarts();
         }
 
     }

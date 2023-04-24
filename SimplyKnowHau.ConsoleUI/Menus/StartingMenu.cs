@@ -241,6 +241,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void MenuExit()
         {
+            LogoAndHelpers.DisplayLogo();
             LogoAndHelpers.SetCursorAndMsg(32, "You really want to quit? (Y/N)", FG);
 
             do
