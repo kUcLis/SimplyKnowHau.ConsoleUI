@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SimplyKnowHau.Data\SimplyKnowHau.Data.csproj" />
+    <ProjectReference Include="..\SimplyKnowHau.Logic\SimplyKnowHau.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,10 +1,17 @@
-﻿namespace SimplyKnowHau.ConsoleUI
+﻿using SimplyKnowHau.ConsoleUI.Menus;
+using SimplyKnowHau.Logic.Logic;
+
+namespace SimplyKnowHau.ConsoleUI
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            var userLogic = new UserLogic();
+            var menu = new StartingMenu(userLogic);
+
+            menu.MenuStarts();
+
         }
     }
 }

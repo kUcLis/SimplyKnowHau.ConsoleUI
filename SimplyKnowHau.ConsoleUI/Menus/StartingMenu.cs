@@ -1,4 +1,5 @@
 ﻿using SimplyKnowHau.ConsoleUI.Interfaces;
+using SimplyKnowHau.Logic.Logic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,12 +19,32 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
 
         private static int activePosition = 1;
-
         private static string? welcomeMessage = "Welcome user! Give me your name:";
+        
+        private static List<CardItem> startMenuOptions = new() {
+            new CardItem(1, "Your Animals")),
+            new CardItem(2, "Make an apointment"),
+            new CardItem(3, "History of apointments"),
+            new CardItem(4, "?"),
+            new CardItem(5, "?"),
+            new CardItem(6, "?"),
+            new CardItem(7, "?"),
+            new CardItem(8, "Logout"),
+            new CardItem(9, "Quit")
+            };
 
-
+        private UserLogic _userLogic;
 
         public static string? userName = string.Empty;
+
+
+
+        public StartingMenu(UserLogic userLogic)
+        {
+            _userLogic = userLogic;
+        }
+
+
 
         public void MenuStarts()
         {
@@ -54,7 +75,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                         LogoAndHelpers.SetCursorAndMsg(32, "First, give me your name!", ERR);
 
                     }
-                    else if (UserLogic.GetByName(userName) == null)
+                    else if (_userLogic.GetByName(userName) == null)
                     {
                         LogoAndHelpers.DisplayLogo();
 
@@ -74,7 +95,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                             if (key.Key == ConsoleKey.N)
                             {
                                 userName = String.Empty;
-                                Starts(dictionary);
+                                MenuStarts();
                                 break;
                             }
                             else if (key.Key == ConsoleKey.Y)
@@ -83,12 +104,12 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                             }
                         } while (true);
 
-                        UserLogic.SetCurrentUser(UserLogic.AddUser(userName));
+                        _userLogic.SetCurrentUser(_userLogic.AddUser(userName));
                         break;
                     }
                     else
                     {
-                        UserLogic.SetCurrentUser(UserLogic.GetByName(userName));
+                        _userLogic.SetCurrentUser(_userLogic.GetByName(userName));
                         break;
                     }
                 } while (true);
@@ -98,16 +119,120 @@ namespace SimplyKnowHau.ConsoleUI.Menus
         }
         public void MenuDisplay()
         {
-            throw new NotImplementedException();
+            Console.CursorVisible = false;
+
+            LogoAndHelpers.DisplayLogo();
+
+            LogoAndHelpers.SetCursorAndMsg(32, $"Hi {userName}! What you want to do?", FG);
+
+            Console.WriteLine();
+
+            for (int i = 1; i <= startMenuOptions.Count; i++)
+            {
+                if (activePosition == i)
+                {
+                    Console.BackgroundColor = BG_ACTIVE;
+                    Console.ForegroundColor = FG_ACTIVE;
+                    if (i == startMenuOptions.Count)
+                    {
+                        Console.SetCursorPosition((Console.WindowWidth - welcomeMessage.Length) / 2, Console.CursorTop);
+                        Console.Write($" ESC. ");
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition((Console.WindowWidth - welcomeMessage.Length) / 2, Console.CursorTop);
+                        Console.Write($" {i}. ");
+                    }
+                    //Console.SetCursorPosition((Console.WindowWidth - _stMenuOptions.ElementAt(1).Value.Length) / 2, Console.CursorTop);
+                    Console.WriteLine("{0,-30}", startMenuOptions.ElementAt(i - 1).CardString);
+                    Console.BackgroundColor = BG;
+                    Console.ForegroundColor = FG;
+                }
+                else
+                {
+                    if (i == startMenuOptions.Count)
+                    {
+                        Console.SetCursorPosition((Console.WindowWidth - welcomeMessage.Length) / 2, Console.CursorTop);
+                        Console.Write(" ESC.");
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition((Console.WindowWidth - welcomeMessage.Length) / 2, Console.CursorTop);
+                        Console.Write($" {i}. ");
+                    }
+                    //Console.SetCursorPosition((Console.WindowWidth - _stMenuOptions.ElementAt(1).Value.Length) / 2, Console.CursorTop);
+                    Console.WriteLine(startMenuOptions.ElementAt(i - 1).CardString);
+                }
+            }
         }
 
         public void SelectMenuOption()
         {
-            throw new NotImplementedException();
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.UpArrow)
+                {
+                    activePosition = (activePosition > 1) ? --activePosition : startMenuOptions.Count;
+                    MenuDisplay();
+                }
+                else if (key.Key == ConsoleKey.DownArrow)
+                {
+                    activePosition = (activePosition % startMenuOptions.Count) + 1;
+                    MenuDisplay();
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                {
+                    activePosition = startMenuOptions.Count;
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                else
+                {
+                    MenuDisplay();
+                }
+            } while (true);
         }
         public void ChoosenOption()
         {
-            throw new NotImplementedException();
+            switch (activePosition)
+            {
+                case 1:
+                    var dictionary2 = new Dictionaries(2);
+                    Starts(Dictionaries.AnimalMenuOptions);
+                    break;
+                case 2:
+                    var dictionary4 = new Dictionaries(5);
+                    Starts(Dictionaries.ChooseAnimalMenuOptions);
+                    break;
+                case 3:
+                    var dictionary3 = new Dictionaries(4);
+                    Starts(Dictionaries.AppointmentMenuOptions);
+                    break;
+                case 4:
+
+                    Starts(dictionary);
+                    break;
+                case 5:
+                    Starts(dictionary);
+                    break;
+                case 6:
+                    Starts(dictionary);
+                    break;
+                case 7:
+                    Starts(dictionary);
+                    break;
+                case 8:
+                    userName = String.Empty;
+                    Starts(dictionary);
+                    break;
+                case 9:
+                    Exit(dictionary);
+                    break;
+            }
         }
 
         

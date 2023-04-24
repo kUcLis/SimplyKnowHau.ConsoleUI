@@ -15,7 +15,7 @@ namespace SimplyKnowHau.Logic.Logic
         private static List<User>? _users = DataMenager.Users;
 
         public static User? currentUser = null;
-        public static User AddUser(string name)
+        public User AddUser(string name)
         {
             int id = GetNextId();
             var user = new User(id, name);
@@ -23,31 +23,31 @@ namespace SimplyKnowHau.Logic.Logic
             return user;
         }
 
-        public static User GetById(int id)
+        public User GetById(int id)
         {
 
             return _users.First(c => c.Id == id);
 
         }
 
-        public static User GetByName(string name)
+        public User GetByName(string name)
         {
 
             return _users.FirstOrDefault(c => c.Name == name);
 
         }
-        public static User SetCurrentUser(User? user)
+        public User SetCurrentUser(User? user)
         {
             currentUser = user;
             return currentUser;
         }
 
-        public static User GetCurrentUser()
+        public User GetCurrentUser()
         {
             return currentUser ?? throw new Exception("Not Found");
         }
 
-        private static int GetNextId()
+        private int GetNextId()
         {
             return ++_idCounter;
         }
