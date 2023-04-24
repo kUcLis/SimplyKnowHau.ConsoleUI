@@ -38,7 +38,7 @@ namespace SimplyKnowHau.Logic.Logic
 
         public Appointment GetLastByAnimalId(int animalId)
         {
-            return _appointments.Last(a => a.AnimalId == animalId);
+            return _appointments.LastOrDefault(a => a.AnimalId == animalId);
         }
 
         public List<CardItem> UserIdToMenu()
@@ -63,7 +63,7 @@ namespace SimplyKnowHau.Logic.Logic
                 }
                 else
                 {
-                    menu.Add(new CardItem(appointmentList.ElementAt(i - 2).Id, $"{appointmentList.ElementAt(i - 2).Date.ToShortDateString()}: {AnimalLogic.GetById(appointmentList.ElementAt(i - 2).AnimalId).Name}"));
+                   // menu.Add(new CardItem(appointmentList.ElementAt(i - 2).Id, $"{appointmentList.ElementAt(i - 2).Date.ToShortDateString()}: {AnimalLogic.GetById(appointmentList.ElementAt(i - 2).AnimalId).Name}"));
                 }
             }
 
@@ -78,4 +78,4 @@ namespace SimplyKnowHau.Logic.Logic
         }
     }
 }
-}
+
