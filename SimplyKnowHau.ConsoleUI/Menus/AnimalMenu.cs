@@ -135,7 +135,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             else if (animalMenuOptions.ElementAt(activePosition - 1).CardString != "No more animals to show")
             {
                 var appointmentLogic = new AppointmentLogic();
-                var animalCard = new AnimalCard(_animalLogic.GetById(animalMenuOptions.ElementAt(activePosition).Id), _animalLogic, appointmentLogic);
+                var animalCard = new AnimalCard(_animalLogic.GetById(animalMenuOptions.ElementAt(activePosition - 1).Id), _animalLogic, appointmentLogic);
                 animalCard.StartAnimalCard();
             }
             else
