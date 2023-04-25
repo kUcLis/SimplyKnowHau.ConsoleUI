@@ -1,4 +1,6 @@
-﻿using SimplyKnowHau.ConsoleUI.Interfaces;
+﻿using SimplyKnowHau.ConsoleUI.AddCard;
+using SimplyKnowHau.ConsoleUI.Cards;
+using SimplyKnowHau.ConsoleUI.Interfaces;
 using SimplyKnowHau.Logic;
 using SimplyKnowHau.Logic.Logic;
 using System;
@@ -126,7 +128,9 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             if (activePosition == 1)
             {
                 activePosition = 1;
-                //CardMenu.AddCardAnimal();
+                var speciesLogic = new SpeciesLogic();
+                var animalAddCard = new AnimalAddCard(speciesLogic);
+                animalAddCard.AddAnimal();
             }
             else if (activePosition == animalMenuOptions.Count)
             {

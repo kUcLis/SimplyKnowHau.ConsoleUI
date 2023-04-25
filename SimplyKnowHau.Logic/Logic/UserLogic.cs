@@ -20,6 +20,7 @@ namespace SimplyKnowHau.Logic.Logic
             int id = GetNextId();
             var user = new User(id, name);
             _users.Add(user);
+            DataMenager.SaveList(_users, "Users.json");
             return user;
         }
 

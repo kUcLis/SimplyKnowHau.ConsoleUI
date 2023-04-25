@@ -17,12 +17,12 @@ namespace SimplyKnowHau.Data
             return JsonSerializer.Deserialize<List<T>>(itemsSerialized) ?? new List<T>();
         }
 
-        public static void SaveListAnimal(List<Animal> animalsList)
+        public static void SaveList<T>(List<T> list, string jsonFile)
         {
-            string fileName = "Animal.json";
+            string fileName = jsonFile;
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
 
-            string itemsSerialized = JsonSerializer.Serialize(animalsList);
+            string itemsSerialized = JsonSerializer.Serialize(list);
 
             File.WriteAllText(filePath, itemsSerialized);
 
