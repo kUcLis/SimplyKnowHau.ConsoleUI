@@ -134,7 +134,9 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             }
             else if (animalMenuOptions.ElementAt(activePosition - 1).CardString != "No more animals to show")
             {
-                //CardMenu.AnimalCard(AnimalLogic.GetById(dictionary.ElementAt(activePosition - 1).Id));
+                var appointmentLogic = new AppointmentLogic();
+                var animalCard = new AnimalCard(_animalLogic.GetById(animalMenuOptions.ElementAt(activePosition - 1).Id), _animalLogic, appointmentLogic);
+                animalCard.StartAnimalCard();
             }
             else
             {
@@ -144,7 +146,9 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void MenuExit()
         {
-            throw new NotImplementedException();
+            var userLogic = new UserLogic();
+            var startingMenu = new StartingMenu(userLogic);
+            startingMenu.MenuStarts();
         }
 
     }

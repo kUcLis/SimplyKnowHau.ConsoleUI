@@ -27,7 +27,7 @@ namespace SimplyKnowHau.ConsoleUI
             Console.ForegroundColor = color;
             Console.SetCursorPosition((Console.WindowWidth - cursor) / 2, Console.CursorTop);
             Console.WriteLine(msg);
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = FG;
 
         }
 

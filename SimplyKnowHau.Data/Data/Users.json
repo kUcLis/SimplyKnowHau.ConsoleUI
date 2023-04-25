@@ -1,1 +1,10 @@
-[{"Id":1,"Name":"Admin"}]
+[
+  {
+    "Id": 1,
+    "Name": "Admin"
+  },
+  {
+    "Id": 2,
+    "Name": "Ulis"
+  }
+]
