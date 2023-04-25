@@ -1,4 +1,5 @@
-﻿using SimplyKnowHau.Data.Model;
+﻿using SimplyKnowHau.ConsoleUI.Menus;
+using SimplyKnowHau.Data.Model;
 using SimplyKnowHau.Logic;
 using SimplyKnowHau.Logic.Logic;
 using System;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimplyKnowHau.ConsoleUI.Menus
+namespace SimplyKnowHau.ConsoleUI.Cards
 {
     internal class AnimalCard
     {
@@ -24,7 +25,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         private static List<CardItem>? cardItemsAnimal = new();
         private AnimalLogic _animalLogic;
-        
+
 
         private static List<CardItem> shortMenu = new()
         {
@@ -37,7 +38,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
         public AnimalCard(Animal animal, AnimalLogic animalLogic, AppointmentLogic appointmentLogic)
         {
             _animalLogic = animalLogic;
-            
+
 
             var appointment = appointmentLogic.GetLastByAnimalId(animal.Id);
 
@@ -47,7 +48,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             cardItemsAnimal.Add(new CardItem(3, "Specie: ", animal.AnimalCategory.Specie));
             cardItemsAnimal.Add(new CardItem(4, "Age: ", _animalLogic.Age(animal).ToString()));
             cardItemsAnimal.Add(new CardItem(5, "Date of birth: ", animal.DateOfBirth.ToShortDateString()));
-            if(appointment != null)
+            if (appointment != null)
             {
                 cardItemsAnimal.Add(new CardItem(6, "Date of last visit: ", appointment.Date.ToShortDateString()));
                 cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", appointment.Description));
@@ -59,7 +60,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                 cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", "No appointment yet!"));
                 cardItemsAnimal.Add(new CardItem(8, "Receives: ", "No appointment yet!"));
             }
-            
+
         }
 
         public void StartAnimalCard()
@@ -97,7 +98,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                 {
                     Console.BackgroundColor = BG_ACTIVE;
                     Console.ForegroundColor = FG_ACTIVE;
-                    if (i == cardItemsAnimal.Count)
+                    if (i == shortMenu.Count)
                     {
                         Console.SetCursorPosition((Console.WindowWidth - 32) / 2, Console.CursorTop);
                         Console.Write($" ESC. ");
@@ -136,12 +137,12 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                 ConsoleKeyInfo key = Console.ReadKey();
                 if (key.Key == ConsoleKey.UpArrow)
                 {
-                    activePosition = (activePosition > 1) ? --activePosition : shortMenu.Count;
+                    activePosition = activePosition > 1 ? --activePosition : shortMenu.Count;
                     StartAnimalCard();
                 }
                 else if (key.Key == ConsoleKey.DownArrow)
                 {
-                    activePosition = (activePosition % shortMenu.Count) + 1;
+                    activePosition = activePosition % shortMenu.Count + 1;
                     StartAnimalCard();
                 }
                 else if (key.Key == ConsoleKey.Escape)
@@ -167,10 +168,10 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             switch (activePosition)
             {
                 case 1:
-                    
+
                     break;
                 case 2:
-                   // EditCard.EditCardAnimal(dictionary, (Animal)item);
+                    // EditCard.EditCardAnimal(dictionary, (Animal)item);
                     break;
                 default:
                     ShortMenuExit();
