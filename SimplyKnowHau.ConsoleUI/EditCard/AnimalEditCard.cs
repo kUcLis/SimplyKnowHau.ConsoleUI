@@ -44,8 +44,8 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
                 {
                     LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);
                 }
-                
-                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{editCardItemsAnimal.ElementAt(i - 1).CardString}", FG)
+
+                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{editCardItemsAnimal.ElementAt(i - 1).CardString}", FG);
                 
                 Console.Write($"{editCardItemsAnimal.ElementAt(i - 1).CardContent}");
                 Console.ForegroundColor = ConsoleColor.White;
