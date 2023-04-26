@@ -27,7 +27,7 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
 
         }
 
-        public static void EditCardAnimal(List<CardItem> dictionary, Animal animal)
+        public void EditCardAnimal()
         {
             
             bool broken = false;
@@ -35,22 +35,18 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
             Console.CursorVisible = true;
 
 
-            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Leave empty if you don't want to change value", FG_ACTIVE)
+            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Leave empty if you don't want to change value", FG_ACTIVE);
             
             for (int i = 1; i <= editCardItemsAnimal.Count; i++)
             {
 
                 if (i == 2)
                 {
-                    LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE)
-
-                    Console.ForegroundColor = FG_ACTIVE;
-                    Console.WriteLine($"Spiecies you can choose:{_speciesLogic.SpeciesToString()}");
-                    Console.ForegroundColor = FG;
+                    LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);
                 }
-                Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                Console.ForegroundColor = FG;
-                Console.Write($"{editCardItemsAnimal.ElementAt(i - 1).CardString}");
+                
+                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{editCardItemsAnimal.ElementAt(i - 1).CardString}", FG)
+                
                 Console.Write($"{editCardItemsAnimal.ElementAt(i - 1).CardContent}");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
