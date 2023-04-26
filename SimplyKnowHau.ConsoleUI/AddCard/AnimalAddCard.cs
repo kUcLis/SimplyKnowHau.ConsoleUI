@@ -47,7 +47,7 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
 
                 LogoAndHelpers.SetCursorAndMsgWrite(50, $"{cardItemsAnimal.ElementAt(i - 1).CardString}", FG);
 
-                
+                Console.ForegroundColor = ConsoleColor.Gray;
 
                 do
                 {

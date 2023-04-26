@@ -65,7 +65,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
 
                 LogoAndHelpers.SetCursorAndMsgWriteLine(32, welcomeMessage, FG);
-
+                Console.ForegroundColor = ConsoleColor.Gray;
                 do
                 {
 
