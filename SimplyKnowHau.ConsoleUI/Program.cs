@@ -12,6 +12,7 @@ namespace SimplyKnowHau.ConsoleUI
 
             menu.MenuStarts();
 
+            Environment.Exit(0);
         }
     }
 }

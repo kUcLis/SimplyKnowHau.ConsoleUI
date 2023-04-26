@@ -49,7 +49,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
             LogoAndHelpers.DisplayLogo();
 
-            LogoAndHelpers.SetCursorAndMsg(32, $"Hi {userName}! What you want to do?", FG);
+            LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Hi {userName}! What you want to do?", FG);
 
             Console.WriteLine();
 

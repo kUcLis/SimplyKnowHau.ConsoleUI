@@ -42,7 +42,7 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
 
                 if (i == 2)
                 {
-                    LogoAndHelpers.SetCursorAndMsg(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);          
+                    LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);          
                 }
 
                 Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
@@ -53,9 +53,9 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
                     string? userInsert = Console.ReadLine();
                     if (userInsert == string.Empty)
                     {
-                        LogoAndHelpers.SetCursorAndMsg(50, "Type something!", ERR);
+                        LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Type something!", ERR);
 
-                        LogoAndHelpers.SetCursorAndMsg(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                        LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
                         
                         Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                         ConsoleKeyInfo key = Console.ReadKey();
@@ -76,9 +76,9 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
                     {
                         if (userInsert.Length > 15)
                         {
-                            LogoAndHelpers.SetCursorAndMsg(50, "Maximum 15 characters!", ERR);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Maximum 15 characters!", ERR);
 
-                            LogoAndHelpers.SetCursorAndMsg(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
                             
                             Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                             ConsoleKeyInfo key = Console.ReadKey();
@@ -105,11 +105,11 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
                     {
                         if (_speciesLogic.GetByName(userInsert) == null)
                         {
-                            LogoAndHelpers.SetCursorAndMsg(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);
 
-                            LogoAndHelpers.SetCursorAndMsg(50, "Must be in the one of Categories!", ERR);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Must be in the one of Categories!", ERR);
 
-                            LogoAndHelpers.SetCursorAndMsg(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
 
                             Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                             ConsoleKeyInfo key = Console.ReadKey();
@@ -136,11 +136,11 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
                     {
                         if (!DateTime.TryParse(userInsert, out DateTime result))
                         {
-                            LogoAndHelpers.SetCursorAndMsg(50, "It has to be in forma YYYY-MM-DD. Example: 1989-03-06", FG_ACTIVE);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "It has to be in forma YYYY-MM-DD. Example: 1989-03-06", FG_ACTIVE);
 
-                            LogoAndHelpers.SetCursorAndMsg(50, "Format the date correctly!", ERR);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Format the date correctly!", ERR);
 
-                            LogoAndHelpers.SetCursorAndMsg(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
 
                             Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                             ConsoleKeyInfo key = Console.ReadKey();

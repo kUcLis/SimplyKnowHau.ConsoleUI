@@ -64,7 +64,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             {
 
 
-                LogoAndHelpers.SetCursorAndMsg(32, welcomeMessage, FG);
+                LogoAndHelpers.SetCursorAndMsgWriteLine(32, welcomeMessage, FG);
 
                 do
                 {
@@ -73,20 +73,20 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
                     if (string.IsNullOrWhiteSpace(userName))
                     {
-                        LogoAndHelpers.SetCursorAndMsg(32, "First, give me your name!", ERR);
+                        LogoAndHelpers.SetCursorAndMsgWriteLine(32, "First, give me your name!", ERR);
 
                     }
                     else if (_userLogic.GetByName(userName) == null)
                     {
                         LogoAndHelpers.DisplayLogo();
 
-                        LogoAndHelpers.SetCursorAndMsg(32, $"Hi {userName}!", FG);
+                        LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Hi {userName}!", FG);
 
-                        LogoAndHelpers.SetCursorAndMsg(32, "Remember that username, you were added to our database!", FG);
+                        LogoAndHelpers.SetCursorAndMsgWriteLine(32, "Remember that username, you were added to our database!", FG);
 
                         Console.WriteLine();
 
-                        LogoAndHelpers.SetCursorAndMsg(32, "Are you happy with your choice? (Y/N)", FG);
+                        LogoAndHelpers.SetCursorAndMsgWriteLine(32, "Are you happy with your choice? (Y/N)", FG);
 
                         Console.CursorVisible = false;
 
@@ -124,7 +124,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
             LogoAndHelpers.DisplayLogo();
 
-            LogoAndHelpers.SetCursorAndMsg(32, $"Hi {userName}! What you want to do?", FG);
+            LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Hi {userName}! What you want to do?", FG);
 
             Console.WriteLine();
 
@@ -242,7 +242,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
         public void MenuExit()
         {
             LogoAndHelpers.DisplayLogo();
-            LogoAndHelpers.SetCursorAndMsg(32, "You really want to quit? (Y/N)", FG);
+            LogoAndHelpers.SetCursorAndMsgWriteLine(32, "You really want to quit? (Y/N)", FG);
 
             do
             {
@@ -255,7 +255,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                 else if (key.Key == ConsoleKey.Y)
                 {
                     LogoAndHelpers.DisplayLogo();
-                    LogoAndHelpers.SetCursorAndMsg(32, $"Bye {userName}", FG);
+                    LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Bye {userName}", FG);
 
                     activePosition = 0;
                     Console.ReadLine();
