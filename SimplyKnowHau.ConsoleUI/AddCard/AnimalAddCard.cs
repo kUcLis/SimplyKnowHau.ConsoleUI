@@ -45,8 +45,9 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
                     LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);          
                 }
 
-                Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                Console.Write($"{cardItemsAnimal.ElementAt(i - 1).CardString}");
+                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{cardItemsAnimal.ElementAt(i - 1).CardString}", FG);
+
+                
 
                 do
                 {
