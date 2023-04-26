@@ -22,11 +22,20 @@ namespace SimplyKnowHau.ConsoleUI
            |         `---'                                   
 ";
 
-        public static void SetCursorAndMsg(int cursor, string? msg, ConsoleColor color)
+        public static void SetCursorAndMsgWriteLine(int cursor, string? msg, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.SetCursorPosition((Console.WindowWidth - cursor) / 2, Console.CursorTop);
             Console.WriteLine(msg);
+            Console.ForegroundColor = FG;
+
+        }
+
+        public static void SetCursorAndMsgWrite(int cursor, string? msg, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.SetCursorPosition((Console.WindowWidth - cursor) / 2, Console.CursorTop);
+            Console.Write(msg);
             Console.ForegroundColor = FG;
 
         }

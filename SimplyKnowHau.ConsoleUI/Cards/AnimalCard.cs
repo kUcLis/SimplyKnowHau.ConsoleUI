@@ -75,13 +75,47 @@ namespace SimplyKnowHau.ConsoleUI.Cards
         {
             LogoAndHelpers.DisplayLogo();
 
+            
             for (int i = 0; i < cardItemsAnimal.Count; i++)
             {
 
-                Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                Console.Write($"{cardItemsAnimal.ElementAt(i).CardString}");
+                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{cardItemsAnimal.ElementAt(i).CardString}", FG);
+
                 Console.ForegroundColor = FG_ACTIVE;
-                Console.Write($"{cardItemsAnimal.ElementAt(i).CardContent}");
+                string stringhelper = cardItemsAnimal.ElementAt(i).CardContent;
+                while (true)
+                {
+                    if (stringhelper.Length > 60)
+                    {
+
+                        Console.WriteLine();
+                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
+                        int j = 50;
+                        string stringhelper2 = stringhelper;
+                        while (true)
+                        {
+                            if (stringhelper2[j] != ' ')
+                            {
+                                j++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        stringhelper2 = stringhelper2.Substring(0, j);
+                        Console.Write(stringhelper2);
+                        stringhelper2 = stringhelper;
+                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
+                        stringhelper = stringhelper2.Substring(j + 1, stringhelper2.Length - (j + 1));
+
+                    }
+                    else
+                    {
+                        Console.Write($"{stringhelper}");
+                        break;
+                    }
+                }
                 Console.WriteLine();
                 Console.ForegroundColor = FG;
             }
