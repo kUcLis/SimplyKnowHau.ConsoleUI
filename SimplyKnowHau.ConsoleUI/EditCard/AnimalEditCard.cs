@@ -1,4 +1,5 @@
-﻿using SimplyKnowHau.Data;
+﻿using SimplyKnowHau.ConsoleUI.Cards;
+using SimplyKnowHau.Data;
 using SimplyKnowHau.Data.Model;
 using SimplyKnowHau.Logic;
 using SimplyKnowHau.Logic.Logic;
@@ -14,13 +15,18 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
     {
         const ConsoleColor FG = ConsoleColor.DarkYellow;
         const ConsoleColor FG_ACTIVE = ConsoleColor.White;
+        const ConsoleColor ERR = ConsoleColor.DarkRed;
 
         private SpeciesLogic _speciesLogic;
-        private static List<CardItem>? editCardItemsAnimal = new();
+        private Animal _animal;
+        private  List<CardItem>? editCardItemsAnimal = new();
 
         public AnimalEditCard(Animal animal, SpeciesLogic speciesLogic)
         {
+            _animal = animal;
             _speciesLogic = speciesLogic;
+
+            
             editCardItemsAnimal.Add(new CardItem(1, "Name: ", animal.Name));
             editCardItemsAnimal.Add(new CardItem(2, "Specie: ", animal.AnimalCategory.Specie));
             editCardItemsAnimal.Add(new CardItem(3, "Date of birth: ", animal.DateOfBirth.ToShortDateString()));
@@ -48,10 +54,11 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
                 LogoAndHelpers.SetCursorAndMsgWrite(50, $"{editCardItemsAnimal.ElementAt(i - 1).CardString}", FG);
                 
                 Console.Write($"{editCardItemsAnimal.ElementAt(i - 1).CardContent}");
-                Console.ForegroundColor = ConsoleColor.White;
+                
                 Console.WriteLine();
-                Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                Console.Write("New :");
+
+                LogoAndHelpers.SetCursorAndMsgWrite(50, "New: ", FG_ACTIVE);
+                
 
                 do
                 {
@@ -65,12 +72,10 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
                     {
                         if (userInsert.Length > 15)
                         {
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("Maximum 15 characters!");
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.WriteLine("ESC - To go back to Animal Menu. Press any key now to continue.");
-                            Console.ForegroundColor = FG;
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Maximum 15 characters!", ERR);
+
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                            
                             Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                             ConsoleKeyInfo key = Console.ReadKey();
                             if (key.Key != ConsoleKey.Escape)
@@ -94,17 +99,14 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
                     }
                     else if (i == 2)
                     {
-                        if (SpeciesLogic.GetByName(userInsert) == null)
+                        if (_speciesLogic.GetByName(userInsert) == null)
                         {
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.ForegroundColor = FG_ACTIVE;
-                            Console.WriteLine($"Spiecies you can choose:{SpeciesLogic.SpeciesToString()}");
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("Must be in the one of Categories!");
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.WriteLine("ESC - To go back to Animal Menu. Press any key now to continue.");
-                            Console.ForegroundColor = FG;
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, $"Spiecies you can choose:{_speciesLogic.SpeciesToString()}", FG_ACTIVE);
+
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Must be in the one of Categories!", ERR);
+
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                            
                             Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                             ConsoleKeyInfo key = Console.ReadKey();
                             if (key.Key != ConsoleKey.Escape)
@@ -130,15 +132,12 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
                     {
                         if (!DateTime.TryParse(userInsert, out DateTime result))
                         {
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.ForegroundColor = FG_ACTIVE;
-                            Console.WriteLine("It has to be in forma YYYY-MM-DD. Example: 1989-03-06");
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("Format the date correctly!");
-                            Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                            Console.WriteLine("ESC - To go back to Animal Menu. Press any key now to continue.");
-                            Console.ForegroundColor = FG;
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "It has to be in forma YYYY-MM-DD. Example: 1989-03-06", FG_ACTIVE);
+
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "Format the date correctly!", ERR);
+
+                            LogoAndHelpers.SetCursorAndMsgWriteLine(50, "ESC - To go back to Animal Menu. Press any key now to continue.", ERR);
+                            
                             Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
                             ConsoleKeyInfo key = Console.ReadKey();
                             if (key.Key != ConsoleKey.Escape)
@@ -164,18 +163,21 @@ namespace SimplyKnowHau.ConsoleUI.EditCard
             }
             if (!broken)
             {
-                DataMenager.Animals.First(c => c.Id == animal.Id).Name = editCardItemsAnimal.ElementAt(0).CardContent;
-                animal.Name = editCardItemsAnimal.ElementAt(0).CardContent;
+                var animalToEdit = DataMenager.Animals.First(c => c.Id == _animal.Id);
 
-                DataMenager.Animals.First(c => c.Id == animal.Id).AnimalCategory = SpeciesLogic.GetByName(editCardItemsAnimal.ElementAt(1).CardContent);
-                animal.AnimalCategory = SpeciesLogic.GetByName(editCardItemsAnimal.ElementAt(1).CardContent);
+                animalToEdit.Name = editCardItemsAnimal.ElementAt(0).CardContent;
 
-                DataMenager.Animals.First(c => c.Id == animal.Id).DateOfBirth = DateTime.Parse(editCardItemsAnimal.ElementAt(2).CardContent);
-                animal.DateOfBirth = DateTime.Parse(editCardItemsAnimal.ElementAt(2).CardContent);
+                animalToEdit.AnimalCategory = _speciesLogic.GetByName(editCardItemsAnimal.ElementAt(1).CardContent);
+
+                animalToEdit.DateOfBirth = DateTime.Parse(editCardItemsAnimal.ElementAt(2).CardContent);
+
+                _animal = animalToEdit;
             }
-            editCardItemsAnimal.Clear();
-            var dictionary2 = new CardMenu(animal);
-            CardMenu.AnimalCard(animal);
+
+            var animalLogic = new AnimalLogic();
+            var appointmentLogic = new AppointmentLogic();
+            var animalCard = new AnimalCard(_animal, animalLogic,appointmentLogic);
+            animalCard.StartAnimalCard();
         }
 
 
