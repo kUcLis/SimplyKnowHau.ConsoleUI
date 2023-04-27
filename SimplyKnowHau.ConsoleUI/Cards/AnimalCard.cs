@@ -1,4 +1,5 @@
-﻿using SimplyKnowHau.ConsoleUI.Menus;
+﻿using SimplyKnowHau.ConsoleUI.EditCard;
+using SimplyKnowHau.ConsoleUI.Menus;
 using SimplyKnowHau.Data.Model;
 using SimplyKnowHau.Logic;
 using SimplyKnowHau.Logic.Logic;
@@ -25,6 +26,7 @@ namespace SimplyKnowHau.ConsoleUI.Cards
 
         private static List<CardItem>? cardItemsAnimal = new();
         private AnimalLogic _animalLogic;
+        private Animal _animal;
 
 
         private static List<CardItem> shortMenu = new()
@@ -38,7 +40,7 @@ namespace SimplyKnowHau.ConsoleUI.Cards
         public AnimalCard(Animal animal, AnimalLogic animalLogic, AppointmentLogic appointmentLogic)
         {
             _animalLogic = animalLogic;
-
+            _animal = animal;
 
             var appointment = appointmentLogic.GetLastByAnimalId(animal.Id);
 
@@ -205,7 +207,9 @@ namespace SimplyKnowHau.ConsoleUI.Cards
 
                     break;
                 case 2:
-                    // EditCard.EditCardAnimal(dictionary, (Animal)item);
+                    var speciesLogic = new SpeciesLogic();
+                    var animalEditCard = new AnimalEditCard(_animal, speciesLogic);
+                    animalEditCard.EditCardAnimal();
                     break;
                 default:
                     ShortMenuExit();
