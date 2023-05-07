@@ -26,12 +26,8 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             new CardItem(1, "Your Animals"),
             new CardItem(2, "Make an apointment"),
             new CardItem(3, "History of apointments"),
-            new CardItem(4, "?"),
-            new CardItem(5, "?"),
-            new CardItem(6, "?"),
-            new CardItem(7, "?"),
-            new CardItem(8, "Logout"),
-            new CardItem(9, "Quit")
+            new CardItem(4, "Logout"),
+            new CardItem(5, "Quit")
             };
 
         private UserLogic _userLogic;
@@ -215,23 +211,10 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                     //Starts(Dictionaries.AppointmentMenuOptions);
                     break;
                 case 4:
-
-                    MenuStarts();
-                    break;
-                case 5:
-                    MenuStarts();
-                    break;
-                case 6:
-                    MenuStarts();
-                    break;
-                case 7:
-                    MenuStarts();
-                    break;
-                case 8:
                     userName = String.Empty;
                     MenuStarts();
                     break;
-                case 9:
+                case 5:
                     MenuExit();
                     break;
             }

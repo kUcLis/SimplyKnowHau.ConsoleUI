@@ -175,11 +175,13 @@ namespace SimplyKnowHau.ConsoleUI.Cards
                 {
                     activePosition = activePosition > 1 ? --activePosition : shortMenu.Count;
                     StartAnimalCard();
+                    break;
                 }
                 else if (key.Key == ConsoleKey.DownArrow)
                 {
                     activePosition = activePosition % shortMenu.Count + 1;
                     StartAnimalCard();
+                    break;
                 }
                 else if (key.Key == ConsoleKey.Escape)
                 {
@@ -211,7 +213,7 @@ namespace SimplyKnowHau.ConsoleUI.Cards
                     var animalEditCard = new AnimalEditCard(_animal, speciesLogic);
                     animalEditCard.EditCardAnimal();
                     break;
-                default:
+                case 3:
                     ShortMenuExit();
                     break;
             }
