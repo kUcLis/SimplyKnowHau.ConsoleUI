@@ -198,18 +198,24 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             switch (activePosition)
             {
                 case 1:
-                    var animalLogic = new AnimalLogic();
-                    var animalMenu = new AnimalMenu(animalLogic);
-                    animalMenu.MenuStarts();
-                    break;
+                    {
+                        var animalLogic = new AnimalLogic();
+                        var animalMenu = new AnimalMenu(animalLogic);
+                        animalMenu.MenuStarts();
+                        break;
+                    }
                 case 2:
                     //var dictionary4 = new Dictionaries(5);
                     //Starts(Dictionaries.ChooseAnimalMenuOptions);
                     break;
                 case 3:
-                    //var dictionary3 = new Dictionaries(4);
-                    //Starts(Dictionaries.AppointmentMenuOptions);
-                    break;
+                    {
+                        var animalLogic = new AnimalLogic();
+                        var appointmentLogic = new AppointmentLogic();
+                        var appointmentMenu = new AppointmentMenu(appointmentLogic, animalLogic);
+                        appointmentMenu.MenuStarts();
+                        break;
+                    }
                 case 4:
                     userName = String.Empty;
                     MenuStarts();

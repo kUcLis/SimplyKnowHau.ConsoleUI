@@ -26,36 +26,12 @@ namespace SimplyKnowHau.Logic.Logic
         {
             return _animals.FirstOrDefault(c => c.Id == id);
         }
-
-        public List<CardItem> CreateMenu()
+        
+        public List<Animal> GetAnimalList()
         {
-
-            var animalList = _animals.Where(c => c.UserId == UserLogic.currentUser.Id);
-            var menu = new List<CardItem>();
-
-            for (int i = 1; i <= animalList.Count() + 3; i++)
-            {
-                if (i == 1)
-                {
-                    menu.Add(new CardItem(i, "Add your Animal"));
-                }
-                else if (i == animalList.Count() + 3)
-                {
-                    menu.Add(new CardItem(i, "Back"));
-                }
-                else if (i >= animalList.Count() + 2)
-                {
-                    menu.Add(new CardItem(i, "No more animals to show"));
-                }
-                else
-                {
-                    menu.Add(new CardItem(animalList.ElementAt(i - 2).Id, $"{animalList.ElementAt(i - 2).AnimalCategory.Specie}: {animalList.ElementAt(i - 2).Name}, Age:{Age(animalList.ElementAt(i - 2))}"));
-                }
-            }
-
-            return menu;
+            return _animals;
         }
-
+        
         public List<CardItem> ChooseAnimalUserIdToMenu()
         {
 

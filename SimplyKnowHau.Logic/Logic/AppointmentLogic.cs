@@ -29,6 +29,11 @@ namespace SimplyKnowHau.Logic.Logic
 
         }
 
+        public List<Appointment> GetAppointmentsList()
+        {
+            return _appointments;
+        }
+
         public Appointment GetByAnimalId(int animalid)
         {
 
@@ -40,37 +45,6 @@ namespace SimplyKnowHau.Logic.Logic
         {
             return _appointments.LastOrDefault(a => a.AnimalId == animalId);
         }
-
-        public List<CardItem> UserIdToMenu()
-        {
-
-            var appointmentList = _appointments.Where(c => c.UserId == UserLogic.currentUser.Id);
-            var menu = new List<CardItem>();
-
-            for (int i = 1; i <= appointmentList.Count() + 3; i++)
-            {
-                if (i == 1)
-                {
-                    menu.Add(new CardItem(i, "Make an appointment"));
-                }
-                else if (i == appointmentList.Count() + 3)
-                {
-                    menu.Add(new CardItem(i, "Back"));
-                }
-                else if (i >= appointmentList.Count() + 2)
-                {
-                    menu.Add(new CardItem(i, "No more appointments to show"));
-                }
-                else
-                {
-                   // menu.Add(new CardItem(appointmentList.ElementAt(i - 2).Id, $"{appointmentList.ElementAt(i - 2).Date.ToShortDateString()}: {AnimalLogic.GetById(appointmentList.ElementAt(i - 2).AnimalId).Name}"));
-                }
-            }
-
-            return menu;
-        }
-
-
 
         private static int GetNextId()
         {
