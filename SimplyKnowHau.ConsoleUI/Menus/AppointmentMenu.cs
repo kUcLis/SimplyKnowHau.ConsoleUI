@@ -130,15 +130,13 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             if (activePosition == 1)
             {
                 activePosition = 1;
-                var speciesLogic = new SpeciesLogic();
-                var animalAddCard = new AnimalAddCard(speciesLogic);
-                animalAddCard.AddAnimal();
+                
             }
             else if (activePosition == appointmentMenuOptions.Count)
             {
                 MenuExit();
             }
-            else if (appointmentMenuOptions.ElementAt(activePosition - 1).CardString != "No more animals to show")
+            else if (appointmentMenuOptions.ElementAt(activePosition - 1).CardString != "No more appointments to show")
             {
                 
             }

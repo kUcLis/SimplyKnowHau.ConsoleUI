@@ -1,18 +1,17 @@
-﻿using SimplyKnowHau.ConsoleUI.EditCard;
-using SimplyKnowHau.ConsoleUI.Menus;
-using SimplyKnowHau.Data.Model;
-using SimplyKnowHau.Logic;
+﻿using SimplyKnowHau.Data.Model;
 using SimplyKnowHau.Logic.Logic;
+using SimplyKnowHau.Logic;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimplyKnowHau.ConsoleUI.EditCard;
+using SimplyKnowHau.ConsoleUI.Menus;
 
 namespace SimplyKnowHau.ConsoleUI.Cards
 {
-    internal class AnimalCard
+    internal class AppointmentCard
     {
         const ConsoleColor BG = ConsoleColor.Black;
         const ConsoleColor BG_ACTIVE = ConsoleColor.DarkYellow;
@@ -24,104 +23,29 @@ namespace SimplyKnowHau.ConsoleUI.Cards
         private static int activePosition = 1;
 
 
-        private static List<CardItem>? cardItemsAnimal = new();
+        private static List<CardItem>? cardItemsAppointment = new();
         private AnimalLogic _animalLogic;
-        private Animal _animal;
+        private Appointment _appointment;
 
 
         private static List<CardItem> shortMenu = new()
         {
-            new CardItem(1, "Make an appointment for that animal"),
-            new CardItem(2, "Edit animal"),
-            new CardItem(3, "Back")
+            new CardItem(1, "Delete Visit"),
+            new CardItem(2, "Back"),
+
         };
 
-
-
-        public AnimalCard(Animal animal, AnimalLogic animalLogic, AppointmentLogic appointmentLogic)
+        public AppointmentCard(Appointment appointment, AnimalLogic animalLogic)
         {
             _animalLogic = animalLogic;
-            _animal = animal;
-
-            var appointment = appointmentLogic.GetLastByAnimalId(animal.Id);
-
-            cardItemsAnimal.Clear();
-            cardItemsAnimal.Add(new CardItem(1, "Animal Id: ", animal.Id.ToString()));
-            cardItemsAnimal.Add(new CardItem(2, "Name: ", animal.Name));
-            cardItemsAnimal.Add(new CardItem(3, "Specie: ", animal.AnimalCategory.Specie));
-            cardItemsAnimal.Add(new CardItem(4, "Age: ", _animalLogic.Age(animal).ToString()));
-            cardItemsAnimal.Add(new CardItem(5, "Date of birth: ", animal.DateOfBirth.ToShortDateString()));
-            if (appointment != null)
-            {
-                cardItemsAnimal.Add(new CardItem(6, "Date of last visit: ", appointment.Date.ToShortDateString()));
-                cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", appointment.Description));
-                cardItemsAnimal.Add(new CardItem(8, "Receives: ", appointment.Recipe));
-            }
-            else
-            {
-                cardItemsAnimal.Add(new CardItem(6, "Date of last visit: ", "No appointment yet!"));
-                cardItemsAnimal.Add(new CardItem(7, "Description of the visit: ", "No appointment yet!"));
-                cardItemsAnimal.Add(new CardItem(8, "Receives: ", "No appointment yet!"));
-            }
-
-        }
-
-        public void StartAnimalCard()
-        {
-            DisplayCardAnimal();
-            DisplayShortAnimalMenu();
-            SelectShortMenuOption();
-            ChoosenShortOption();
-        }
-
-        private void DisplayCardAnimal()
-        {
-            LogoAndHelpers.DisplayLogo();
-
-            
-            for (int i = 0; i < cardItemsAnimal.Count; i++)
-            {
-
-                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{cardItemsAnimal.ElementAt(i).CardString}", FG);
-
-                Console.ForegroundColor = FG_ACTIVE;
-                string stringhelper = cardItemsAnimal.ElementAt(i).CardContent;
-                while (true)
-                {
-                    if (stringhelper.Length > 60)
-                    {
-
-                        Console.WriteLine();
-                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                        int j = 50;
-                        string stringhelper2 = stringhelper;
-                        while (true)
-                        {
-                            if (stringhelper2[j] != ' ')
-                            {
-                                j++;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        stringhelper2 = stringhelper2.Substring(0, j);
-                        Console.Write(stringhelper2);
-                        stringhelper2 = stringhelper;
-                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
-                        stringhelper = stringhelper2.Substring(j + 1, stringhelper2.Length - (j + 1));
-
-                    }
-                    else
-                    {
-                        Console.Write($"{stringhelper}");
-                        break;
-                    }
-                }
-                Console.WriteLine();
-                Console.ForegroundColor = FG;
-            }
+            _appointment = appointment;
+            cardItemsAppointment.Add(new CardItem(1, "Animal: ", _animalLogic.GetById(appointment.AnimalId).Name));
+            cardItemsAppointment.Add(new CardItem(2, "Owner: ", UserLogic.currentUser.Name));
+            cardItemsAppointment.Add(new CardItem(3, "Age: ", _animalLogic.Age(_animalLogic.GetById(appointment.AnimalId)).ToString()));
+            cardItemsAppointment.Add(new CardItem(4, "Date of birth: ", _animalLogic.GetById(appointment.AnimalId).DateOfBirth.ToShortDateString()));
+            cardItemsAppointment.Add(new CardItem(5, "Date: ", appointment.Date.ToShortDateString()));
+            cardItemsAppointment.Add(new CardItem(6, "Description of the visit: ", appointment.Description));
+            cardItemsAppointment.Add(new CardItem(7, "Receives: ", appointment.Recipe));
         }
 
         private void DisplayShortAnimalMenu()
@@ -227,5 +151,4 @@ namespace SimplyKnowHau.ConsoleUI.Cards
             animalMenu.MenuStarts();
         }
     }
-
 }
