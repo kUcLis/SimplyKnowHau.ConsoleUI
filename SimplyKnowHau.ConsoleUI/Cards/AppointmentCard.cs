@@ -48,7 +48,7 @@ namespace SimplyKnowHau.ConsoleUI.Cards
             cardItemsAppointment.Add(new CardItem(7, "Receives: ", appointment.Recipe));
         }
 
-        private void DisplayShortAnimalMenu()
+        private void DisplayShortAppointmentMenu()
         {
             Console.SetCursorPosition((Console.WindowWidth - 32) / 2, Console.CursorTop);
             Console.WriteLine();
