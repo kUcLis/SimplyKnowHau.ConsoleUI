@@ -194,9 +194,7 @@ namespace SimplyKnowHau.ConsoleUI.Cards
             switch (activePosition)
             {
                 case 1:
-                    //var speciesLogic = new SpeciesLogic();
-                    //var animalEditCard = new AnimalEditCard(_animal, speciesLogic);
-                    //animalEditCard.EditCardAnimal();
+                    StartAppointmentDeleteCard();
                     break;
                 case 2:
                     ShortMenuExit();
@@ -209,6 +207,45 @@ namespace SimplyKnowHau.ConsoleUI.Cards
             var appointmentLogic = new AppointmentLogic();
             var appointmentMenu = new AppointmentMenu(appointmentLogic ,_animalLogic);
             appointmentMenu.MenuStarts();
+        }
+
+        private void StartAppointmentDeleteCard()
+        {
+            DisplayCardAppointment();
+            DeleteMessage();
+            SelectDeleteOption();
+        }
+
+        private void DeleteMessage()
+        {
+            Console.WriteLine();
+            LogoAndHelpers.SetCursorAndMsgWrite(50, $"Are you sure that You want to delete this visit? (y/n)", ERR);
+        }
+
+        public void SelectDeleteOption()
+        {
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Y)
+                {
+
+                    var appointmentLogic = new AppointmentLogic();
+                    appointmentLogic.Delete(_appointment);
+                    var appointmentMenu = new AppointmentMenu(appointmentLogic, _animalLogic);
+                    appointmentMenu.MenuStarts();
+                }
+                else if (key.Key == ConsoleKey.N)
+                {
+                    StartAppointmentCard();
+
+                }
+                else 
+                {
+                    StartAppointmentDeleteCard();
+                    break;
+                }
+            } while (true);
         }
     }
 }

@@ -46,6 +46,11 @@ namespace SimplyKnowHau.Logic.Logic
             return _appointments.LastOrDefault(a => a.AnimalId == animalId);
         }
 
+        public void Delete(Appointment appointment)
+        {
+            DataMenager.Appointments.Remove(appointment);
+            DataMenager.SaveList(DataMenager.Appointments, "Appointments.json");
+        }
         private static int GetNextId()
         {
             return ++_idCounter;
