@@ -138,7 +138,8 @@ namespace SimplyKnowHau.ConsoleUI.Menus
             }
             else if (appointmentMenuOptions.ElementAt(activePosition - 1).CardString != "No more appointments to show")
             {
-                
+                var appointmentCard = new AppointmentCard(_appointmentLogic.GetById(appointmentMenuOptions.ElementAt(activePosition - 1).Id), _animalLogic);
+                appointmentCard.StartAppointmentCard();
             }
             else
             {
