@@ -39,6 +39,7 @@ namespace SimplyKnowHau.ConsoleUI.Cards
         {
             _animalLogic = animalLogic;
             _appointment = appointment;
+            cardItemsAppointment.Clear();
             cardItemsAppointment.Add(new CardItem(1, "Animal: ", _animalLogic.GetById(appointment.AnimalId).Name));
             cardItemsAppointment.Add(new CardItem(2, "Owner: ", UserLogic.currentUser.Name));
             cardItemsAppointment.Add(new CardItem(3, "Age: ", _animalLogic.Age(_animalLogic.GetById(appointment.AnimalId)).ToString()));
@@ -46,6 +47,71 @@ namespace SimplyKnowHau.ConsoleUI.Cards
             cardItemsAppointment.Add(new CardItem(5, "Date: ", appointment.Date.ToShortDateString()));
             cardItemsAppointment.Add(new CardItem(6, "Description of the visit: ", appointment.Description));
             cardItemsAppointment.Add(new CardItem(7, "Receives: ", appointment.Recipe));
+        }
+
+        public void StartAppointmentCard()
+        {
+            DisplayCardAppointment();
+            DisplayShortAppointmentMenu();
+            SelectShortMenuOption();
+            ChoosenShortOption();
+        }
+
+        public static void DisplayCardAppointment()
+        {
+            
+
+            LogoAndHelpers.DisplayLogo();
+
+            for (int i = 0; i < cardItemsAppointment.Count; i++)
+            {
+
+                LogoAndHelpers.SetCursorAndMsgWrite(50, $"{cardItemsAppointment.ElementAt(i).CardString}", FG);
+                
+                Console.ForegroundColor = FG_ACTIVE;
+
+                string stringhelper = cardItemsAppointment.ElementAt(i).CardContent;
+                while (true)
+                {
+                    if (stringhelper.Length > 60)
+                    {
+
+                        Console.WriteLine();
+                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
+                        int j = 50;
+                        string stringhelper2 = stringhelper;
+                        while (true)
+                        {
+                            if (stringhelper2[j] != ' ')
+                            {
+                                j++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        stringhelper2 = stringhelper2.Substring(0, j);
+                        Console.Write(stringhelper2);
+                        stringhelper2 = stringhelper;
+                        Console.SetCursorPosition((Console.WindowWidth - 50) / 2, Console.CursorTop);
+                        stringhelper = stringhelper2.Substring(j + 1, stringhelper2.Length - (j + 1));
+
+                    }
+                    else
+                    {
+                        Console.Write($"{stringhelper}");
+                        break;
+                    }
+                }
+                Console.WriteLine();
+                Console.ForegroundColor = FG;
+            }
+
+
+
+
+
         }
 
         private void DisplayShortAppointmentMenu()
@@ -99,14 +165,14 @@ namespace SimplyKnowHau.ConsoleUI.Cards
                 if (key.Key == ConsoleKey.UpArrow)
                 {
                     activePosition = activePosition > 1 ? --activePosition : shortMenu.Count;
-                    StartAnimalCard();
-                    break;
+                    StartAppointmentCard();
+
                 }
                 else if (key.Key == ConsoleKey.DownArrow)
                 {
                     activePosition = activePosition % shortMenu.Count + 1;
-                    StartAnimalCard();
-                    break;
+                    StartAppointmentCard();
+
                 }
                 else if (key.Key == ConsoleKey.Escape)
                 {
@@ -119,9 +185,6 @@ namespace SimplyKnowHau.ConsoleUI.Cards
                 }
                 else
                 {
-                    if (key.Key == ConsoleKey.D1) activePosition = 1;
-                    if (key.Key == ConsoleKey.D2) activePosition = 2;
-                    if (key.Key == ConsoleKey.D3) activePosition = 3;
                     break;
                 }
             } while (true);
@@ -131,14 +194,9 @@ namespace SimplyKnowHau.ConsoleUI.Cards
             switch (activePosition)
             {
                 case 1:
-
+                    StartAppointmentDeleteCard();
                     break;
                 case 2:
-                    var speciesLogic = new SpeciesLogic();
-                    var animalEditCard = new AnimalEditCard(_animal, speciesLogic);
-                    animalEditCard.EditCardAnimal();
-                    break;
-                case 3:
                     ShortMenuExit();
                     break;
             }
@@ -146,9 +204,48 @@ namespace SimplyKnowHau.ConsoleUI.Cards
 
         private void ShortMenuExit()
         {
-            var animalLogic = new AnimalLogic();
-            var animalMenu = new AnimalMenu(animalLogic);
-            animalMenu.MenuStarts();
+            var appointmentLogic = new AppointmentLogic();
+            var appointmentMenu = new AppointmentMenu(appointmentLogic ,_animalLogic);
+            appointmentMenu.MenuStarts();
+        }
+
+        private void StartAppointmentDeleteCard()
+        {
+            DisplayCardAppointment();
+            DeleteMessage();
+            SelectDeleteOption();
+        }
+
+        private void DeleteMessage()
+        {
+            Console.WriteLine();
+            LogoAndHelpers.SetCursorAndMsgWrite(50, $"Are you sure that You want to delete this visit? (y/n)", ERR);
+        }
+
+        public void SelectDeleteOption()
+        {
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Y)
+                {
+
+                    var appointmentLogic = new AppointmentLogic();
+                    appointmentLogic.Delete(_appointment);
+                    var appointmentMenu = new AppointmentMenu(appointmentLogic, _animalLogic);
+                    appointmentMenu.MenuStarts();
+                }
+                else if (key.Key == ConsoleKey.N)
+                {
+                    StartAppointmentCard();
+
+                }
+                else 
+                {
+                    StartAppointmentDeleteCard();
+                    break;
+                }
+            } while (true);
         }
     }
 }
