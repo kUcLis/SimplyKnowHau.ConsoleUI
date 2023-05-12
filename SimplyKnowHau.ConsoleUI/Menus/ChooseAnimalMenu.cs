@@ -1,19 +1,17 @@
 ﻿using SimplyKnowHau.ConsoleUI.AddCard;
 using SimplyKnowHau.ConsoleUI.Cards;
-using SimplyKnowHau.ConsoleUI.Interfaces;
-using SimplyKnowHau.Data.Model;
-using SimplyKnowHau.Logic;
 using SimplyKnowHau.Logic.Logic;
+using SimplyKnowHau.Logic;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimplyKnowHau.ConsoleUI.Interfaces;
 
 namespace SimplyKnowHau.ConsoleUI.Menus
 {
-    internal class AnimalMenu : IMenu
+    internal class ChooseAnimalMenu : IMenu
     {
         const ConsoleColor BG = ConsoleColor.Black;
         const ConsoleColor BG_ACTIVE = ConsoleColor.DarkYellow;
@@ -30,7 +28,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         private AnimalLogic _animalLogic;
 
-        public AnimalMenu(AnimalLogic animalLogic)
+        public ChooseAnimalMenu(AnimalLogic animalLogic)
         {
             _animalLogic = animalLogic;
             animalMenuOptions = CreateMenu();
@@ -50,7 +48,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
             LogoAndHelpers.DisplayLogo();
 
-            LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Hi {userName}! What you want to do?", FG);
+            LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Hi {userName}! Choose Animal to make appointment.", FG);
 
             Console.WriteLine();
 
@@ -151,41 +149,12 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void MenuExit()
         {
-            var userLogic = new UserLogic();
-            var startingMenu = new StartingMenu(userLogic);
-            startingMenu.MenuStarts();
+            var appointmentLogic = new AppointmentLogic();
+            var appointmentMenu = new AppointmentMenu(appointmentLogic, _animalLogic);
+            appointmentMenu.MenuStarts();
         }
 
         public List<CardItem> CreateMenu()
-        {
-
-            var animalList = _animalLogic.GetAnimalList().Where(a => a.UserId == UserLogic.currentUser.Id);
-            var menu = new List<CardItem>();
-
-            for (int i = 1; i <= animalList.Count() + 3; i++)
-            {
-                if (i == 1)
-                {
-                    menu.Add(new CardItem(i, "Add your Animal"));
-                }
-                else if (i == animalList.Count() + 3)
-                {
-                    menu.Add(new CardItem(i, "Back"));
-                }
-                else if (i >= animalList.Count() + 2)
-                {
-                    menu.Add(new CardItem(i, "No more animals to show"));
-                }
-                else
-                {
-                    menu.Add(new CardItem(animalList.ElementAt(i - 2).Id, $"{animalList.ElementAt(i - 2).AnimalCategory.Specie}: {animalList.ElementAt(i - 2).Name}, Age:{_animalLogic.Age(animalList.ElementAt(i - 2))}"));
-                }
-            }
-
-            return menu;
-        }
-
-        public List<CardItem> ChooseAnimalForAppointmentMenu()
         {
 
             var animalList = _animalLogic.GetAnimalList().Where(a => a.UserId == UserLogic.currentUser.Id);
@@ -203,11 +172,12 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                 }
                 else
                 {
-                    menu.Add(new CardItem(animalList.ElementAt(i - 2).Id, $"{animalList.ElementAt(i - 2).AnimalCategory.Specie}: {animalList.ElementAt(i - 2).Name}, Age:{_animalLogic.Age(animalList.ElementAt(i - 2))}"));
+                    menu.Add(new CardItem(animalList.ElementAt(i - 1).Id, $"{animalList.ElementAt(i - 1).AnimalCategory.Specie}: {animalList.ElementAt(i - 1).Name}, Age:{_animalLogic.Age(animalList.ElementAt(i - 1))}"));
                 }
             }
 
             return menu;
         }
     }
+
 }

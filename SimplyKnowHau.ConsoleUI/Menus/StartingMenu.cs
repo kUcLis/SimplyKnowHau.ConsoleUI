@@ -205,8 +205,11 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                         break;
                     }
                 case 2:
-                    //var dictionary4 = new Dictionaries(5);
-                    //Starts(Dictionaries.ChooseAnimalMenuOptions);
+                    {
+                        var animalLogic = new AnimalLogic();
+                        var chooseAnimalMenu = new ChooseAnimalMenu(animalLogic);
+                        chooseAnimalMenu.MenuStarts();
+                    }
                     break;
                 case 3:
                     {
