@@ -30,9 +30,9 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
         }
 
 
-        public void AddAnimal()
+        public void DisplatAnimalAddCard()
         {
-            
+            var animalLogic = new AnimalLogic();
             bool broken = false;
             LogoAndHelpers.DisplayLogo();
             Console.CursorVisible = true;
@@ -168,14 +168,14 @@ namespace SimplyKnowHau.ConsoleUI.AddCard
             }
             if (!broken)
             {
-                AnimalLogic.AddAnimal(
+                animalLogic.AddAnimal(
                     cardItemsAnimal.ElementAt(0).CardContent,
                     _speciesLogic.GetByName(cardItemsAnimal.ElementAt(1).CardContent),
                     DateTime.Parse(cardItemsAnimal.ElementAt(2).CardContent)
                     );
             }
 
-            var animalLogic = new AnimalLogic();
+            
             var animalMenu = new AnimalMenu(animalLogic);
             animalMenu.MenuStarts();
         }

@@ -50,7 +50,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
             LogoAndHelpers.DisplayLogo();
 
-            LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"Hi {userName}! What you want to do?", FG);
+            LogoAndHelpers.SetCursorAndMsgWriteLine(32, $"{userName} pets.", FG);
 
             Console.WriteLine();
 
@@ -131,7 +131,7 @@ namespace SimplyKnowHau.ConsoleUI.Menus
                 activePosition = 1;
                 var speciesLogic = new SpeciesLogic();
                 var animalAddCard = new AnimalAddCard(speciesLogic);
-                animalAddCard.AddAnimal();
+                animalAddCard.DisplatAnimalAddCard();
             }
             else if (activePosition == animalMenuOptions.Count)
             {

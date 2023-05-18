@@ -124,22 +124,16 @@ namespace SimplyKnowHau.ConsoleUI.Menus
 
         public void ChoosenOption()
         {
-            if (activePosition == 1)
-            {
-                activePosition = 1;
-                var speciesLogic = new SpeciesLogic();
-                var animalAddCard = new AnimalAddCard(speciesLogic);
-                animalAddCard.AddAnimal();
-            }
-            else if (activePosition == animalMenuOptions.Count)
+            if (activePosition == animalMenuOptions.Count)
             {
                 MenuExit();
             }
             else if (animalMenuOptions.ElementAt(activePosition - 1).CardString != "No more animals to show")
             {
+                var animal = _animalLogic.GetById(animalMenuOptions.ElementAt(activePosition - 1).Id);
                 var appointmentLogic = new AppointmentLogic();
-                var animalCard = new AnimalCard(_animalLogic.GetById(animalMenuOptions.ElementAt(activePosition - 1).Id), _animalLogic, appointmentLogic);
-                animalCard.StartAnimalCard();
+                var appointmentAddCard = new AppointmentAddCard(animal,_animalLogic,appointmentLogic);
+                appointmentAddCard.DisplayAppointmentAddCard();
             }
             else
             {
