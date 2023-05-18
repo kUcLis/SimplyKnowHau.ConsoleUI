@@ -13,12 +13,13 @@ namespace SimplyKnowHau.Logic.Logic
         private static int _idCounter = DataMenager.Animals.Max(c => c.Id);
 
         private static readonly List<Animal>? _animals = DataMenager.Animals;
-        public static Animal AddAnimal(string name, Species animalCategory, DateTime dateOfBirth)
+        public Animal AddAnimal(string name, Species animalCategory, DateTime dateOfBirth)
         {
             int id = GetNextId();
             int userId = UserLogic.currentUser.Id;
             var animal = new Animal(id, userId, name, animalCategory, dateOfBirth);
-            DataMenager.Animals.Add(animal);
+            _animals.Add(animal);
+            DataMenager.SaveList(_animals, "Animals.json");
             return animal;
         }
 

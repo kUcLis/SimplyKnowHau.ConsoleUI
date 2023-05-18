@@ -18,7 +18,8 @@ namespace SimplyKnowHau.Logic.Logic
         {
             int id = GetNextId();
             var appointment = new Appointment(id, userid, animalid, date, description, recipe);
-            DataMenager.Appointments.Add(appointment);
+            _appointments.Add(appointment);
+            DataMenager.SaveList(_appointments, "Appointments.json");
             return appointment;
         }
 
